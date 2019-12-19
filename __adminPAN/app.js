@@ -30,10 +30,9 @@ const submitQuestionsList = () => {
         let isTrue = document.getElementsByName("questionisAnswer" + i);
         answers.forEach((e, j) => {
             req += `&answer${i}[]=${answers[j].value}`;
-            req += `&isTrue${i}[]=${(isTrue[j].checked)?'yes':'no'}`;
+            req += `&isTrue${i}[]=${(isTrue[j].checked)?'true':'false'}`;
         })
     }
-    console.log(req);
     fetch(req)
         .then(res => M.Modal.close(document.querySelectorAll('#addQuestions')))
 }
