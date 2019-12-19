@@ -28,9 +28,10 @@
         </nav>
     </header>
     <main id="main">
-        <table class="highlight centered striped responsive-table">
+        <br>
+        <table class="highlight centered striped">
             <thead>
-                <tr>
+                <tr class="theme">
                     <td>SrNo.</td>
                     <td>Name</td>
                     <td>Password</td>
@@ -72,7 +73,7 @@
                                     <div class="input-field col s12 m6 l6">
                                         <p>
                                             <label>
-                                                <input name="questionisAnswer##" type="radio" />
+                                                <input name="questionisAnswer##" type="radio"/>
                                                 <span>Is Answer</span>
                                             </label>
                                         </p>
@@ -92,7 +93,7 @@
             </div>
             <div class="modal-footer">
                 <div class="btn theme red modal-trigger modal-close left"><i class="icon">close</i></div>
-                <div class="btn theme right"><i class="icon">send</i></div>
+                <div class="btn theme right" onclick="submitQuestionsList()"><i class="icon">send</i></div>
             </div>
         </div>
         <div id="addTeam" class="modal">
@@ -106,7 +107,7 @@
                                 <label for="teamName##">Team ## Name</label>
                             </div>
                             <div class="input-field col s12 m6 l6">
-                                <input type="text" id="teamPassword##" name="teamName" required>
+                                <input type="text" id="teamPassword##" name="teamPassword" required>
                                 <label for="teamPassword##">Team ## Password</label>
                             </div>
                         </div>
@@ -118,7 +119,7 @@
             </div>
             <div class="modal-footer">
                 <div class="btn theme red modal-trigger modal-close left"><i class="icon">close</i></div>
-                <div class="btn theme right"><i class="icon">send</i></div>
+                <div class="btn theme right" onclick="submitTeamList()"><i class="icon">send</i></div>
             </div>
         </div>
     </footer>
