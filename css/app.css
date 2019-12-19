@@ -1,6 +1,6 @@
 :root {
-    --bgColor: #000;
-    --txColor: #fff;
+    --bgColor: #000 !important;
+    --txColor: #fff !important;
 }
 
 

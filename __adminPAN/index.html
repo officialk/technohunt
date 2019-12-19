@@ -13,19 +13,114 @@
 
     <script src="app.js"></script>
     <script src="../js/material.js"></script>
+    <script src="../js/helper.js"></script>
 </head>
 
 <body>
     <header>
         <nav class="theme">
-            <a class="center brand-logo">Techno-Hunt Admin</a>
+            <a class="hide-on-small center brand-logo">Techno-Hunt Admin</a>
+            <a href="#" data-target="side-nav" class="left sidenav-trigger"><i class="icon">menu</i></a>
+            <ul class="sidenav" id="side-nav">
+                <li><a href="#addQuestions" class="modal-trigger"><i class="icon prefix">question_answer</i>Add Questions</a></li>
+                <li><a href="#addTeam" class="modal-trigger"><i class="icon prefix">group_add</i>Add Team</a></li>
+            </ul>
         </nav>
     </header>
     <main id="main">
+        <table class="highlight centered striped responsive-table">
+            <thead>
+                <tr>
+                    <td>SrNo.</td>
+                    <td>Name</td>
+                    <td>Password</td>
+                    <td>Players</td>
+                    <td>Points</td>
+                    <td>Round</td>
+                    <td>Left Window</td>
+                </tr>
+            </thead>
+            <tbody id="teamOutputDetails">
 
+            </tbody>
+        </table>
     </main>
     <footer>
-
+        <div id="addQuestions" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <div class="row">
+                    <div id="questionList">
+                        <div class="card">
+                            <div class="input-field col s12 m6 l6">
+                                <input type="text" id="questionTitle##" name="questionTitle">
+                                <label for="questionTitle##">Question## Title</label>
+                            </div>
+                            <div class="input-field col s12 m6 l6">
+                                <input type="number" id="questionRound##" name="questionRound">
+                                <label for="questionRound##">Question## Round</label>
+                            </div>
+                            <div class="input-field col s12 m12 l12">
+                                <textarea type="text" class="materialize-textarea" id="questionContent##" name="questionContent"></textarea>
+                                <label for="questionContent##">Question## Content</label>
+                            </div>
+                            <div id="answerList##">
+                                <div>
+                                    <div class="input-field col s12 m6 l6">
+                                        <input type="text" id="questionAnswer1##$$" name="questionAnswer##">
+                                        <label for="questionAnswer##$$">Question## Answer $$</label>
+                                    </div>
+                                    <div class="input-field col s12 m6 l6">
+                                        <p>
+                                            <label>
+                                                <input name="questionisAnswer##" type="radio" />
+                                                <span>Is Answer</span>
+                                            </label>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <center>
+                                <div class="btn-floating center theme" onclick="createDynamicElement('answerList##','$$')"><i class="icon">add_circle_outline</i></div>
+                            </center>
+                            <br>
+                        </div>
+                    </div>
+                    <center>
+                        <div class="btn-floating center theme" onclick="createDynamicElement('questionList');createDynamicElement('answerList'+(++count),'$$');"><i class="icon">add</i></div>
+                    </center>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn theme red modal-trigger modal-close left"><i class="icon">close</i></div>
+                <div class="btn theme right"><i class="icon">send</i></div>
+            </div>
+        </div>
+        <div id="addTeam" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <h3 class="center">Add Team</h3>
+                    <div id="teamList">
+                        <div>
+                            <div class="input-field col s12 m6 l6">
+                                <input type="text" id="teamName##" name="teamName">
+                                <label for="teamName##">Team ## Name</label>
+                            </div>
+                            <div class="input-field col s12 m6 l6">
+                                <input type="text" id="teamPassword##" name="teamName" required>
+                                <label for="teamPassword##">Team ## Password</label>
+                            </div>
+                        </div>
+                    </div>
+                    <center>
+                        <div class="btn-floating center theme" onclick="createDynamicElement('teamList')"><i class="icon">add</i></div>
+                    </center>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn theme red modal-trigger modal-close left"><i class="icon">close</i></div>
+                <div class="btn theme right"><i class="icon">send</i></div>
+            </div>
+        </div>
     </footer>
 </body>
 
