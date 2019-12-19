@@ -68,6 +68,7 @@ CREATE TABLE `question` (
 
 CREATE TABLE `round` (
   `teamId` int(11) NOT NULL,
+  `round` int(11) NOT NULL,
   `startTime` datetime NOT NULL,
   `endTime` datetime NOT NULL,
   `leftWindow` int(11) NOT NULL
@@ -82,7 +83,6 @@ CREATE TABLE `round` (
 CREATE TABLE `teams` (
   `id` int(11) NOT NULL,
   `teamName` varchar(30) NOT NULL,
-  `points` int(11) NOT NULL,
   `isAlive` tinyint(1) NOT NULL,
   `memberNames` text NOT NULL,
   `password` varchar(20) NOT NULL
