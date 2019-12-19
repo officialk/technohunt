@@ -21,7 +21,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `technohunt`
 --
-
+DROP TABLE `answers`, `options`, `question`, `round`, `teams`;
 -- --------------------------------------------------------
 
 --
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `answers` (
   `teamID` int(11) NOT NULL,
   `questionID` int(11) NOT NULL,
-  `answersGiven` int(11) NOT NULL
+  `answerGiven` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -41,10 +41,10 @@ CREATE TABLE `answers` (
 --
 
 CREATE TABLE `options` (
-  `optionID` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `content` varchar(100) NOT NULL,
   `isAnswer` tinyint(1) NOT NULL,
-  `questionID` int(11) NOT NULL
+  `questionId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -56,7 +56,7 @@ CREATE TABLE `options` (
 CREATE TABLE `question` (
   `title` varchar(100) NOT NULL,
   `content` text NOT NULL,
-  `questionID` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `round` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -67,7 +67,7 @@ CREATE TABLE `question` (
 --
 
 CREATE TABLE `round` (
-  `teamID` int(11) NOT NULL,
+  `teamId` int(11) NOT NULL,
   `startTime` datetime NOT NULL,
   `endTime` datetime NOT NULL,
   `leftWindow` int(11) NOT NULL
@@ -96,7 +96,7 @@ CREATE TABLE `teams` (
 -- Indexes for table `question`
 --
 ALTER TABLE `question`
-  ADD PRIMARY KEY (`questionID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `teams`
