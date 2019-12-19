@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2019 at 06:58 AM
+-- Generation Time: Dec 19, 2019 at 07:07 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.4
 
@@ -57,7 +57,7 @@ CREATE TABLE `question` (
   `title` varchar(100) NOT NULL,
   `content` text NOT NULL,
   `questionID` int(11) NOT NULL,
-  `points` int(11) NOT NULL
+  `round` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -91,12 +91,6 @@ CREATE TABLE `teams` (
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `options`
---
-ALTER TABLE `options`
-  ADD PRIMARY KEY (`optionID`);
 
 --
 -- Indexes for table `question`
