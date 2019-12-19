@@ -82,11 +82,30 @@ const submitRound1 = () => {
             if (e != "") {
                 document.getElementsByName("ans" + e)
                     .forEach(x => {
-                        if(x.checked==true){
+                        if (x.checked == true) {
                             qs += `&ans[]=${e.value}&qId[]=${e}`;
                         }
                     })
             }
         })
-    post(qs);
+    post(qs)
+        .then(res => {
+            alert("Answers Submitted!");
+            logout();
+        });
+}
+const submitRound2 = () => {
+    let ans = document.getElementById("ShipsPass").value;
+    let qs = `submit=true&tid=${data.id}&ans=${ans}`;
+    post(qs)
+        .then(res => res.text())
+        .then(res => {
+            if (res == 'correct') {
+                alert("Password Accepted!\nCaptain Marvel Entered The Ship");
+                logout();
+            } else {
+                document.getElementById("passStatus").innerHTML = `${ans} is not accepted`;
+                document.getElementById("ShipsPass").value = "";
+            }
+        })
 }
