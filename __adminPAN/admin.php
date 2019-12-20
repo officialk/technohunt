@@ -5,7 +5,7 @@
         $teamName = $_REQUEST['teamName'];
         $teamPassword = $_REQUEST['teamPassword'];
         for($i=0;$i<len($teamName);$i++){
-            $query = "insert into teams values(null,'$teamName[$i]',false,'',$teamPassword[$i]')";
+            $query = "insert into teams values(null,'$teamName[$i]',false,false,'',$teamPassword[$i]')";
             $conn->query($query);
         }
     }
@@ -29,7 +29,7 @@
 //        $query = "select * from teamList";
         $query = "select * from teamList";
         $res = $conn->query($query);
-        echo "{teams:[";
+        echo "{\"teams\":[";
         while($r=$res->fetch_assoc()){
             echo json_encode($r);
         }
@@ -47,13 +47,13 @@
                     $query = "select count(*) as c from round1Answers where team=$id";
                     $cnt = $conn->query($query);
                     $points = $cnt->fetch_assoc()["c"];
-                    $query = "update round set points=$points/(TIMESTAMPDIFF(minutes,startTime,endTime)*leftWindow) where rouond=1 and teamId=$id";
+                    $query = "update round set points=$points/(TIMESTAMPDIFF(minutes,startTime,endTime)*leftWindow) where round=1 and teamId=$id";
                     $conn->query($query);
                     $query = "select teamId from round where round=1 order by points ASC limit 50";
                     $conn->query("uodate teams set isAlive=false");
                     $res2 = $conn->query($query);
                     while($x = $res2->fetch_assoc()){
-                        $xid = $x['id']
+                        $xid = $x['id'];
                         $conn->query("uodate teams set isAlive=true where id=$xid");
                     }
                 }
@@ -69,7 +69,7 @@
                     $res2 = $conn->query($query);
                     $conn->query("uodate teams set isAlive=false");
                     while($x = $res2->fetch_assoc()){
-                        $xid = $x['id']
+                        $xid = $x['id'];
                         $conn->query("uodate teams set isAlive=true where id=$xid");
                     }
                 }

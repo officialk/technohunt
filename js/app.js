@@ -10,8 +10,12 @@ window.addEventListener("blur", () => {
     LeftWindow();
 });
 const logout = () => {
-    localStorage.setItem("data", "{}");
-    window.location.reload();
+    post("logout=true")
+        .then(res => res.text())
+        .then(res => {
+            localStorage.setItem("data", "{}");
+            window.location.reload();
+        })
 }
 const post = query => {
     let qs = `http://192.168.0.104/Techno/server/app.php?${query}`;
@@ -39,16 +43,15 @@ const login = () => {
     post(`login=true&name=${name}&pass=${pass}`)
         .then(res => res.text())
         .then(res => {
-            console.log(res)
-            res = JSON.parse(res);
-            if (res.id != null || res.count != 0) {
+            [id,error] = res.split("##");
+            if (id != "error") {
                 data.user = name;
                 data.pass = pass;
-                data.id = res.id;
+                data.id = id;
                 localStorage.setItem("data", JSON.stringify(data));
                 display();
             } else {
-                alert("Invalid Username/Password");
+                alert(error);
             }
         })
 }
@@ -89,6 +92,7 @@ const submitRound1 = () => {
             }
         })
     post(qs)
+        .then(res => res.text())
         .then(res => {
             alert("Answers Submitted!");
             logout();

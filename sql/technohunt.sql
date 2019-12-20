@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2019 at 07:07 AM
+-- Generation Time: Dec 20, 2019 at 10:29 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.4
 
@@ -21,7 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `technohunt`
 --
-DROP TABLE `answers`, `options`, `question`, `round`, `teams`;
+drop table if exists answers,question,options,teams,round;
+drop view if exists round1answers,teamlist;
 -- --------------------------------------------------------
 
 --
@@ -78,6 +79,35 @@ CREATE TABLE `round` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `round1answers`
+-- (See below for the actual view)
+--
+CREATE TABLE `round1answers` (
+`qid` int(11)
+,`correct` int(11)
+,`answer` int(11)
+,`team` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `teamlist`
+-- (See below for the actual view)
+--
+CREATE TABLE `teamlist` (
+`name` varchar(30)
+,`pass` varchar(20)
+,`players` text
+,`stat` tinyint(1)
+,`points` decimal(32,0)
+,`round` int(11)
+,`leftWindow` decimal(32,0)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `teams`
 --
 
@@ -85,9 +115,28 @@ CREATE TABLE `teams` (
   `id` int(11) NOT NULL,
   `teamName` varchar(30) NOT NULL,
   `isAlive` tinyint(1) NOT NULL,
+  `isLoggedIn` tinyint(1) NOT NULL,
   `memberNames` text NOT NULL,
   `password` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `round1answers`
+--
+DROP TABLE IF EXISTS `round1answers`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `round1answers`  AS  select `question`.`id` AS `qid`,`options`.`id` AS `correct`,`answers`.`answerGiven` AS `answer`,`teams`.`id` AS `team` from (((`teams` join `answers`) join `question`) join `options`) where ((`teams`.`id` = `answers`.`teamID`) and (`question`.`id` = `answers`.`questionID`) and (`answers`.`answerGiven` = `options`.`id`) and (`options`.`isAnswer` = 1) and (`options`.`questionId` = `question`.`id`)) order by `teams`.`id` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `teamlist`
+--
+DROP TABLE IF EXISTS `teamlist`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `teamlist`  AS  select `teams`.`teamName` AS `name`,`teams`.`password` AS `pass`,`teams`.`memberNames` AS `players`,`teams`.`isAlive` AS `stat`,sum(`round`.`points`) AS `points`,max(`round`.`round`) AS `round`,sum(`round`.`leftWindow`) AS `leftWindow` from (`round` join `teams`) where (`teams`.`id` = `round`.`teamId`) group by `round`.`teamId` order by points ASC ;
 
 --
 -- Indexes for dumped tables

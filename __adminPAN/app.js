@@ -65,3 +65,10 @@ const getTeamList = () => {
             document.getElementById("teamOutputDetails").innerHTML = html;
         })
 }
+const endRound = () => {
+    let qs = server + "round=" + document.getElementById('roundCount').value;
+    console.log(qs);
+    fetch(qs)
+        .then(res => res.text())
+        .then(res => getTeamList());
+}

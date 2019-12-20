@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Techno-Hunt</title>
+    <title>Techno-Hunt Admin</title>
     <meta name="author" content="Karthik Koppaka,Shubham Shirpurkar">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="../css/material.css" rel="stylesheet" type="text/css">
     <link href="../css/app.css" rel="stylesheet" type="text/css">
     <link href="app.css" rel="stylesheet" type="text/css">
-    <link href="../css/material.css" rel="stylesheet" type="text/css">
 
     <script src="app.js"></script>
     <script src="../js/material.js"></script>
@@ -19,12 +19,13 @@
 <body>
     <header>
         <nav class="theme">
-            <a class="hide-on-small center brand-logo">Techno-Hunt Admin</a>
-            <a href="#" data-target="side-nav" class="left sidenav-trigger"><i class="icon">menu</i></a>
-            <ul class="sidenav" id="side-nav">
+            <a class="right center brand-logo">Techno-Hunt Admin</a>
+            <ul class="sidenav sidenav-fixed" id="side-nav">
                 <li><a href="#addQuestions" class="modal-trigger"><i class="icon prefix">question_answer</i>Add Questions</a></li>
                 <li><a href="#addTeam" class="modal-trigger"><i class="icon prefix">group_add</i>Add Team</a></li>
+                <li><a href="#endRoundModal" class="modal-trigger"><i class="icon prefix">close</i>End Round</a></li>
             </ul>
+            <a href="#" data-target="side-nav" class="left show-on-large sidenav-trigger"><i class="icon">menu</i></a>
         </nav>
     </header>
     <main id="main">
@@ -38,7 +39,7 @@
                     <td>Players</td>
                     <td>Points</td>
                     <td>Round</td>
-                    <td>Left Window</td>
+                    <td>Status</td>
                 </tr>
             </thead>
             <tbody id="teamOutputDetails">
@@ -73,7 +74,7 @@
                                     <div class="input-field col s12 m6 l6">
                                         <p>
                                             <label>
-                                                <input name="questionisAnswer##" type="radio"/>
+                                                <input name="questionisAnswer##" type="radio" />
                                                 <span>Is Answer</span>
                                             </label>
                                         </p>
@@ -120,6 +121,18 @@
             <div class="modal-footer">
                 <div class="btn theme red modal-trigger modal-close left"><i class="icon">close</i></div>
                 <div class="btn theme right" onclick="submitTeamList()"><i class="icon">send</i></div>
+            </div>
+        </div>
+        <div class="modal" id="endRoundModal">
+            <div class="modal-content">
+                <center>
+                    End Round
+                </center>
+                <div class="input-field col s12 m12 l12">
+                    <input type="number" id="roundCount">
+                    <label for="roundCount">Enter Round Number To End</label>
+                </div>
+                <button type="button" class="btn-large theme" onclick="endRound()">End Round</button>
             </div>
         </div>
     </footer>
