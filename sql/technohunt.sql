@@ -54,9 +54,9 @@ CREATE TABLE `options` (
 --
 
 CREATE TABLE `question` (
+  `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `content` text NOT NULL,
-  `id` int(11) NOT NULL,
   `round` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -69,6 +69,7 @@ CREATE TABLE `question` (
 CREATE TABLE `round` (
   `teamId` int(11) NOT NULL,
   `round` int(11) NOT NULL,
+  `points` int(11) NOT NULL,
   `startTime` datetime NOT NULL,
   `endTime` datetime NOT NULL,
   `leftWindow` int(11) NOT NULL

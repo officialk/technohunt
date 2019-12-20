@@ -1,3 +1,4 @@
+const server = "http://localhost/Techno/__adminPAN/admin.php?";
 var count = 0;
 window.onload = (e) => {
     M.AutoInit();
@@ -9,8 +10,17 @@ window.onload = (e) => {
 }
 const submitTeamList = () => {
     let names = ["teamName", "teamPassword"];
-    let qs = getQueryString("localhost:8080/addTeams", [], [], names, names);
-    console.log(qs);
+    let qs = server + "addTeams=true";
+    getValuesByNames(["teamName"]).forEach(e => {
+        if (e != "") {
+            qs += `&teamName[]=${e}`;
+        }
+    })
+    getValuesByNames(["teamPassword"]).forEach(e => {
+        if (e != "") {
+            qs += `&teamPassword[]=${e}`;
+        }
+    })
     fetch(qs)
         .then(res => {
             getTeamList();
@@ -18,7 +28,7 @@ const submitTeamList = () => {
         })
 }
 const submitQuestionsList = () => {
-    let req = 'localhost:8080/addQuestions?submit=true&count=' + count;
+    let req = server + 'addQuestions=true&count=' + count;
     let titles = document.getElementsByName("questionTitle");
     let round = document.getElementsByName("questionRound");
     let content = document.getElementsByName("questionContent");
@@ -37,7 +47,7 @@ const submitQuestionsList = () => {
         .then(res => M.Modal.close(document.querySelectorAll('#addQuestions')))
 }
 const getTeamList = () => {
-    fetch('localhost:8080/getTeams')
+    fetch(server + 'getTeams=true')
         .then(res => res.json())
         .then(res => {
             let html = '';
@@ -49,7 +59,7 @@ const getTeamList = () => {
                 html += `<td>${e.players}</td>`;
                 html += `<td>${e.points}</td>`;
                 html += `<td>${e.round}</td>`;
-                html += `<td>${e.leftWindow}</td>`;
+                html += `<td><div class="btn-floating btn-small ${(e.stat)?"green":"red"}</td>`;
                 html += `</tr>`;
             });
             document.getElementById("teamOutputDetails").innerHTML = html;

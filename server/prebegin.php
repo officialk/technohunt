@@ -44,7 +44,7 @@ if(isset($_REQUEST["doWhat"])){
 if(isset($_REQUEST["submit"])){
     $names = $_REQUEST['names'];
     $id = $_REQUEST['id'];
-    $query = "update teams set memberNames='$names' where id=$id";
+    $query = "update teams set isAlive=true,memberNames='$names' where id=$id";
     $conn->query($query);
 }
 ?>

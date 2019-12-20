@@ -10,7 +10,7 @@ if(isset($_REQUEST["doWhat"])){
     $res = $conn->query($query);
     while($x = $res->fetch_assoc()){
         if($x['c']==0){
-            $query = "insert into round values($id,2,sysdate(),'',0);";
+            $query = "insert into round values($id,2,0,sysdate(),'',0);";
             $conn->query($query);
         }
         if($x['endTime']!='0000-00-00 00:00:00'){
