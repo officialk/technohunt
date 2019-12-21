@@ -4,8 +4,8 @@
     if(isset($_REQUEST['addTeams'])){
         $teamName = $_REQUEST['teamName'];
         $teamPassword = $_REQUEST['teamPassword'];
-        for($i=0;$i<len($teamName);$i++){
-            $query = "insert into teams values(null,'$teamName[$i]',false,false,'',$teamPassword[$i]')";
+        for($i=0;$i<sizeof($teamName);$i++){
+            $query = "insert into teams values(null,'$teamName[$i]',false,false,'','$teamPassword[$i]');";
             $conn->query($query);
         }
     }

@@ -11,18 +11,21 @@ window.onload = (e) => {
 const submitTeamList = () => {
     let names = ["teamName", "teamPassword"];
     let qs = server + "addTeams=true";
-    getValuesByNames(["teamName"]).forEach(e => {
-        if (e != "") {
-            qs += escape(`&teamName[]=${e}`);
-        }
+    getValuesByNames(["teamName"]).forEach(x => {
+        x.forEach(e => {
+            if (e != "") {
+                qs += `&teamName[]=${escape(e)}`;
+            }
+        })
     })
-    getValuesByNames(["teamPassword"]).forEach(e => {
-        if (e != "") {
-            qs += escape(`&teamPassword[]=${e}`);
-        }
+    getValuesByNames(["teamPassword"]).forEach(x => {
+        x.forEach(e => {
+            if (e != "") {
+                qs += `&teamPassword[]=${escape(e)}`;
+            }
+        })
     })
-    console.log(qs);
-    fetch(qs)
+    post(qs)
         .then(res => {
             getTeamList();
         })
@@ -33,23 +36,22 @@ const submitQuestionsList = () => {
     let round = document.getElementsByName("questionRound");
     let content = document.getElementsByName("questionContent");
     for (let i = 1; i <= count; i++) {
-        req += escape(`&title[]=${titles[i].value}`);
-        req += escape(`&round[]=${round[i].value}`);
-        req += escape(`&content[]=${content[i].value}`);
+        req += `&title[]=${escape(titles[i].value)}`;
+        req += `&round[]=${escape(round[i].value)}`;
+        req += `&content[]=${escape(content[i].value)}`;
         let answers = document.getElementsByName("questionAnswer" + i);
         let isTrue = document.getElementsByName("questionisAnswer" + i);
         answers.forEach((e, j) => {
-            req += escape(`&answer${i}[]=${answers[j].value}`);
-            req += escape(`&isTrue${i}[]=${(isTrue[j].checked)?'true':'false'}`);
+            req += `&answer${i}[]=${escape(answers[j].value)}`;
+            req += `&isTrue${i}[]=${escape((isTrue[j].checked)?'true':'false')}`;
         })
     }
-    console.log(req);
-    fetch(req)
+    post(req)
         .then(res => res.text())
         .then(res => {});
 }
 const getTeamList = () => {
-    fetch(server + 'getTeams=true')
+    post(server + 'getTeams=true')
         .then(res => res.json())
         .then(res => {
             let html = '';
@@ -69,8 +71,13 @@ const getTeamList = () => {
 }
 const endRound = () => {
     let qs = server + "round=" + document.getElementById('roundCount').value;
-    console.log(qs);
-    fetch(qs)
+    post(qs)
         .then(res => res.text())
         .then(res => getTeamList());
+}
+const post = req => {
+    console.log(req);
+    return fetch(req, {
+        method: "post"
+    })
 }
