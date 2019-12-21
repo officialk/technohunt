@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2019 at 03:09 PM
+-- Generation Time: Dec 21, 2019 at 03:57 PM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.1.29
 
@@ -91,16 +91,32 @@ CREATE TABLE `round1answers` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `teamdet`
+-- (See below for the actual view)
+--
+CREATE TABLE `teamdet` (
+`name` varchar(30)
+,`pass` varchar(20)
+,`stat` tinyint(1)
+,`players` text
+,`points` decimal(32,0)
+,`round` bigint(20)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `teamlist`
 -- (See below for the actual view)
 --
 CREATE TABLE `teamlist` (
-`name` varchar(30)
+`tid` int(11)
+,`name` varchar(30)
 ,`pass` varchar(20)
 ,`players` text
 ,`stat` tinyint(1)
 ,`points` decimal(32,0)
-,`round` int(11)
+,`round` bigint(11)
 ,`leftWindow` decimal(32,0)
 );
 
@@ -131,11 +147,20 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Structure for view `teamdet`
+--
+DROP TABLE IF EXISTS `teamdet`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `teamdet`  AS  select `teams`.`teamName` AS `name`,`teams`.`password` AS `pass`,`teams`.`isAlive` AS `stat`,(select coalesce(`teamlist`.`players`,'') from `teamlist` where (`teamlist`.`tid` = `teams`.`id`)) AS `players`,(select coalesce(`teamlist`.`points`,0) from `teamlist` where (`teamlist`.`tid` = `teams`.`id`)) AS `points`,(select coalesce(`teamlist`.`round`,0) from `teamlist` where (`teamlist`.`tid` = `teams`.`id`)) AS `round` from `teams` order by (select coalesce(`teamlist`.`round`,0) from `teamlist` where (`teamlist`.`tid` = `teams`.`id`)),(select coalesce(`teamlist`.`points`,0) from `teamlist` where (`teamlist`.`tid` = `teams`.`id`)) ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `teamlist`
 --
 DROP TABLE IF EXISTS `teamlist`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `teamlist`  AS  select `teams`.`teamName` AS `name`,`teams`.`password` AS `pass`,`teams`.`memberNames` AS `players`,`teams`.`isAlive` AS `stat`,sum(`round`.`points`) AS `points`,max(`round`.`round`) AS `round`,sum(`round`.`leftWindow`) AS `leftWindow` from (`round` join `teams`) where (`teams`.`id` = `round`.`teamId`) group by `round`.`teamId` order by sum(`round`.`points`) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `teamlist`  AS  select `teams`.`id` AS `tid`,`teams`.`teamName` AS `name`,`teams`.`password` AS `pass`,`teams`.`memberNames` AS `players`,`teams`.`isAlive` AS `stat`,coalesce(sum(`round`.`points`),0) AS `points`,coalesce(max(`round`.`round`),0) AS `round`,coalesce(sum(`round`.`leftWindow`),0) AS `leftWindow` from (`round` join `teams`) where (`teams`.`id` = `round`.`teamId`) group by `round`.`teamId` order by sum(`round`.`points`) ;
 
 --
 -- Indexes for dumped tables
