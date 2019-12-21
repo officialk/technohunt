@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2019 at 03:57 PM
+-- Generation Time: Dec 21, 2019 at 03:59 PM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.1.29
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `technohunt`
 --
+CREATE DATABASE IF NOT EXISTS `technohunt` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `technohunt`;
 
 -- --------------------------------------------------------
 
@@ -28,7 +30,8 @@ SET time_zone = "+00:00";
 -- Table structure for table `answers`
 --
 
-CREATE TABLE `answers` (
+DROP TABLE IF EXISTS `answers`;
+CREATE TABLE IF NOT EXISTS `answers` (
   `teamID` int(11) NOT NULL,
   `questionID` int(11) NOT NULL,
   `answerGiven` int(11) NOT NULL
@@ -40,11 +43,13 @@ CREATE TABLE `answers` (
 -- Table structure for table `options`
 --
 
-CREATE TABLE `options` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `options`;
+CREATE TABLE IF NOT EXISTS `options` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `questionId` int(11) NOT NULL,
   `content` varchar(100) NOT NULL,
-  `isAnswer` tinyint(1) NOT NULL
+  `isAnswer` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -53,11 +58,13 @@ CREATE TABLE `options` (
 -- Table structure for table `question`
 --
 
-CREATE TABLE `question` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `question`;
+CREATE TABLE IF NOT EXISTS `question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `content` text NOT NULL,
-  `round` int(11) NOT NULL
+  `round` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -66,7 +73,8 @@ CREATE TABLE `question` (
 -- Table structure for table `round`
 --
 
-CREATE TABLE `round` (
+DROP TABLE IF EXISTS `round`;
+CREATE TABLE IF NOT EXISTS `round` (
   `teamId` int(11) NOT NULL,
   `round` int(11) NOT NULL,
   `points` int(11) NOT NULL,
@@ -81,7 +89,8 @@ CREATE TABLE `round` (
 -- Stand-in structure for view `round1answers`
 -- (See below for the actual view)
 --
-CREATE TABLE `round1answers` (
+DROP VIEW IF EXISTS `round1answers`;
+CREATE TABLE IF NOT EXISTS `round1answers` (
 `qid` int(11)
 ,`correct` int(11)
 ,`answer` int(11)
@@ -94,7 +103,8 @@ CREATE TABLE `round1answers` (
 -- Stand-in structure for view `teamdet`
 -- (See below for the actual view)
 --
-CREATE TABLE `teamdet` (
+DROP VIEW IF EXISTS `teamdet`;
+CREATE TABLE IF NOT EXISTS `teamdet` (
 `name` varchar(30)
 ,`pass` varchar(20)
 ,`stat` tinyint(1)
@@ -109,7 +119,8 @@ CREATE TABLE `teamdet` (
 -- Stand-in structure for view `teamlist`
 -- (See below for the actual view)
 --
-CREATE TABLE `teamlist` (
+DROP VIEW IF EXISTS `teamlist`;
+CREATE TABLE IF NOT EXISTS `teamlist` (
 `tid` int(11)
 ,`name` varchar(30)
 ,`pass` varchar(20)
@@ -126,13 +137,15 @@ CREATE TABLE `teamlist` (
 -- Table structure for table `teams`
 --
 
-CREATE TABLE `teams` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `teams`;
+CREATE TABLE IF NOT EXISTS `teams` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `teamName` varchar(30) NOT NULL,
   `isAlive` tinyint(1) NOT NULL,
   `isLoggedIn` tinyint(1) NOT NULL,
   `memberNames` text NOT NULL,
-  `password` varchar(20) NOT NULL
+  `password` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -161,50 +174,6 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `teamlist`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `teamlist`  AS  select `teams`.`id` AS `tid`,`teams`.`teamName` AS `name`,`teams`.`password` AS `pass`,`teams`.`memberNames` AS `players`,`teams`.`isAlive` AS `stat`,coalesce(sum(`round`.`points`),0) AS `points`,coalesce(max(`round`.`round`),0) AS `round`,coalesce(sum(`round`.`leftWindow`),0) AS `leftWindow` from (`round` join `teams`) where (`teams`.`id` = `round`.`teamId`) group by `round`.`teamId` order by sum(`round`.`points`) ;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `options`
---
-ALTER TABLE `options`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `question`
---
-ALTER TABLE `question`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `teams`
---
-ALTER TABLE `teams`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `options`
---
-ALTER TABLE `options`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `question`
---
-ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `teams`
---
-ALTER TABLE `teams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
