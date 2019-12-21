@@ -14,8 +14,8 @@
         $title = $_REQUEST['title'];
         $round = $_REQUEST['round'];
         $content = $_REQUEST['content'];
-        for($i=0;$i<sizeof($count)+1;$i++){
-            echo "<br>".$query = "insert into question values(null,'$title[$i]','$round[$i]','$content[$i]');";
+        for($i=0;$i<$count;$i++){
+            echo "<br>".$query = "insert into question values(null,'$title[$i]','$content[$i]','$round[$i]');";
             $res = $conn->query($query);
             $id = $conn->insert_id;
             $x=$i+1;
@@ -25,6 +25,7 @@
                 echo "<br>".$query = "insert into options values(null,$id,'$c[$j]',$t[$j]);";
                 $conn->query($query);
             }
+            echo "<br>";
         }
     }
     if(isset($_REQUEST['getTeams'])){

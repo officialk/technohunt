@@ -7,6 +7,9 @@ window.onload = (e) => {
     createDynamicElement('teamList');
     createDynamicElement('questionList');
     createDynamicElement('answerList' + (++count), '$$');
+    createDynamicElement('answerList' + (count), '$$');
+    createDynamicElement('answerList' + (count), '$$');
+    createDynamicElement('answerList' + (count), '$$');
     getTeamList();
 }
 const submitTeamList = () => {

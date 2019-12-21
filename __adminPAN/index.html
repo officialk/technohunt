@@ -61,7 +61,7 @@
                                 <input type="number" id="questionRound##" name="questionRound" value="1">
                                 <label for="questionRound##">Question## Round</label>
                             </div>
-                            <div class="input-field col s12 m12 l12">
+                            <div class="input-field col s12 m6 l6">
                                 <textarea type="text" class="materialize-textarea" id="questionContent##" name="questionContent"></textarea>
                                 <label for="questionContent##">Question## Content</label>
                             </div>
@@ -82,13 +82,13 @@
                                 </div>
                             </div>
                             <center>
-                                <div class="btn-floating center theme" onclick="createDynamicElement('answerList##','$$')"><i class="icon">add_circle_outline</i></div>
+                                <div class="btn-floating center theme" onclick="createDynamicElement('answerList##','$$');"><i class="icon">add_circle_outline</i></div>
                             </center>
                             <br>
                         </div>
                     </div>
                     <center>
-                        <div class="btn-floating center theme" onclick="createDynamicElement('questionList');createDynamicElement('answerList'+(++count),'$$');"><i class="icon">add</i></div>
+                        <div class="btn-floating center theme" onclick="createDynamicElement('questionList');createDynamicElement('answerList'+(++count),'$$');createDynamicElement('answerList'+count,'$$');createDynamicElement('answerList'+count,'$$');createDynamicElement('answerList'+count,'$$')"><i class="icon">add</i></div>
                     </center>
                 </div>
             </div>
