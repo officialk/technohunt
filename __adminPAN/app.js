@@ -31,19 +31,24 @@ const submitTeamList = () => {
         })
 }
 const submitQuestionsList = () => {
-    let req = server + escape('addQuestions=true&count=' + count);
+    let req = server + 'addQuestions=true&count=' + count;
     let titles = document.getElementsByName("questionTitle");
     let round = document.getElementsByName("questionRound");
     let content = document.getElementsByName("questionContent");
-    for (let i = 1; i <= count; i++) {
+    for (let i = 1; i < count + 1; i++) {
         req += `&title[]=${escape(titles[i].value)}`;
         req += `&round[]=${escape(round[i].value)}`;
         req += `&content[]=${escape(content[i].value)}`;
-        let answers = document.getElementsByName("questionAnswer" + i);
-        let isTrue = document.getElementsByName("questionisAnswer" + i);
-        answers.forEach((e, j) => {
-            req += `&answer${i}[]=${escape(answers[j].value)}`;
-            req += `&isTrue${i}[]=${escape((isTrue[j].checked)?'true':'false')}`;
+        getValuesByNames(["questionAnswer" + i]).forEach(x => {
+            x.forEach((e, j) => {
+                if (e != "") {
+                    var t = document
+                        .getElementsByName("questionisAnswer" + i)[j]
+                        .checked ? 'true' : 'false';
+                    req += `&answer${i}[]=${escape(e)}`;
+                    req += `&isTrue${i}[]=${escape(t)}`;
+                }
+            })
         })
     }
     post(req)

@@ -9,20 +9,22 @@
             $conn->query($query);
         }
     }
-    if(isset($_REQUEST['addQuestions'])){
+    else if(isset($_REQUEST['addQuestions'])){
         $count = $_REQUEST['count'];
         $title = $_REQUEST['title'];
         $round = $_REQUEST['round'];
         $content = $_REQUEST['content'];
-        $query = "insert into question values(null,'$title','$round','$content');";
-        $res = $conn->query($query);
-        $id = $conn->insert_id;
-        for($i=1;$i<$count;$i++){
-            $c = $_REQUEST["answer$i"];
-            $t = $_REQUEST["isTrue$i"];
-            $query = "insert into options values(null,$id,'$c','$t');";
-            $conn->query($query);
-            
+        for($i=0;$i<sizeof($count)+1;$i++){
+            echo "<br>".$query = "insert into question values(null,'$title[$i]','$round[$i]','$content[$i]');";
+            $res = $conn->query($query);
+            $id = $conn->insert_id;
+            $x=$i+1;
+            $c = $_REQUEST["answer$x"];
+            $t = $_REQUEST["isTrue$x"];
+            for($j=0;$j<sizeof($c);$j++){
+                echo "<br>".$query = "insert into options values(null,$id,'$c[$j]',$t[$j]);";
+                $conn->query($query);
+            }
         }
     }
     if(isset($_REQUEST['getTeams'])){
