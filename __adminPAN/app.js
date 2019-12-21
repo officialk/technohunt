@@ -1,4 +1,4 @@
-const server = "http://localhost/Techno/__adminPAN/admin.php?";
+const server = "http://192.168.0.104/Techno/__adminPAN/admin.php?";
 var count = 0;
 window.onload = (e) => {
     M.AutoInit();
@@ -13,38 +13,40 @@ const submitTeamList = () => {
     let qs = server + "addTeams=true";
     getValuesByNames(["teamName"]).forEach(e => {
         if (e != "") {
-            qs += `&teamName[]=${e}`;
+            qs += escape(`&teamName[]=${e}`);
         }
     })
     getValuesByNames(["teamPassword"]).forEach(e => {
         if (e != "") {
-            qs += `&teamPassword[]=${e}`;
+            qs += escape(`&teamPassword[]=${e}`);
         }
     })
+    console.log(qs);
     fetch(qs)
         .then(res => {
             getTeamList();
-            M.Modal.close(document.querySelectorAll('#addTeam'));
         })
 }
 const submitQuestionsList = () => {
-    let req = server + 'addQuestions=true&count=' + count;
+    let req = server + escape('addQuestions=true&count=' + count);
     let titles = document.getElementsByName("questionTitle");
     let round = document.getElementsByName("questionRound");
     let content = document.getElementsByName("questionContent");
     for (let i = 1; i <= count; i++) {
-        req += `&title[]=${titles[i].value}`;
-        req += `&round[]=${round[i].value}`;
-        req += `&content[]=${content[i].value}`;
+        req += escape(`&title[]=${titles[i].value}`);
+        req += escape(`&round[]=${round[i].value}`);
+        req += escape(`&content[]=${content[i].value}`);
         let answers = document.getElementsByName("questionAnswer" + i);
         let isTrue = document.getElementsByName("questionisAnswer" + i);
         answers.forEach((e, j) => {
-            req += `&answer${i}[]=${answers[j].value}`;
-            req += `&isTrue${i}[]=${(isTrue[j].checked)?'true':'false'}`;
+            req += escape(`&answer${i}[]=${answers[j].value}`);
+            req += escape(`&isTrue${i}[]=${(isTrue[j].checked)?'true':'false'}`);
         })
     }
+    console.log(req);
     fetch(req)
-        .then(res => M.Modal.close(document.querySelectorAll('#addQuestions')))
+        .then(res => res.text())
+        .then(res => {});
 }
 const getTeamList = () => {
     fetch(server + 'getTeams=true')
