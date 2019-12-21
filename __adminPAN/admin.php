@@ -29,13 +29,14 @@
     }
     if(isset($_REQUEST['getTeams'])){
 //        $query = "select * from teamList";
-        $query = "select * from teamList";
+        $query = "select * from teamDet";
         $res = $conn->query($query);
-        echo "{\"teams\":[";
+        $ret = "";
         while($r=$res->fetch_assoc()){
-            echo json_encode($r);
+            $ret .= json_encode($r).',';
         }
-        echo "]}";
+        $ret = rtrim($ret,',');
+        echo '{"teams":['.$ret.']}';
     }
     if(isset($_REQUEST['endRound'])){
         $round = $_REQUEST["round"];

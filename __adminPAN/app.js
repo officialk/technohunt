@@ -7,6 +7,7 @@ window.onload = (e) => {
     createDynamicElement('teamList');
     createDynamicElement('questionList');
     createDynamicElement('answerList' + (++count), '$$');
+    getTeamList();
 }
 const submitTeamList = () => {
     let names = ["teamName", "teamPassword"];
@@ -62,13 +63,13 @@ const getTeamList = () => {
             let html = '';
             res.teams.forEach((e, i) => {
                 html += `<tr>`;
-                html += `<td>${i}</td>`;
+                html += `<td>${i+1}</td>`;
                 html += `<td>${e.name}</td>`;
                 html += `<td>${e.pass}</td>`;
-                html += `<td>${e.players}</td>`;
-                html += `<td>${e.points}</td>`;
-                html += `<td>${e.round}</td>`;
-                html += `<td><div class="btn-floating btn-small ${(e.stat)?"green":"red"}</td>`;
+                html += `<td>${e.players||'-'}</td>`;
+                html += `<td>${e.points||0}</td>`;
+                html += `<td>${e.round||0}</td>`;
+                html += `<td><div class="btn-floating btn-small ${(e.stat!=undefined && e.stat=='1')?'green':'red'}"><i class="icon">computer</i></td>`;
                 html += `</tr>`;
             });
             document.getElementById("teamOutputDetails").innerHTML = html;
@@ -81,7 +82,6 @@ const endRound = () => {
         .then(res => getTeamList());
 }
 const post = req => {
-    console.log(req);
     return fetch(req, {
         method: "post"
     })
