@@ -29,8 +29,8 @@
         }
     }
     if(isset($_REQUEST['getTeams'])){
-        $query = "select * from teamList";
-//        $query = "select * from teamDet";
+//        $query = "select * from teamList";
+        $query = "select * from teamDet";
         $res = $conn->query($query);
         $ret = "";
         while($r=$res->fetch_assoc()){
