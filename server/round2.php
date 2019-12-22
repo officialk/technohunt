@@ -3,8 +3,8 @@
 ROUND 2.1
     CLUE: The original betrayer. The one who defied the Supreme Intelligence and committed treason. The answer is in a popular digital interpretation format, used by the inhabitants of the target planet.
     HINT 1: The answer to the character is within the proposal. Read the document carefully.
-    HINT 2: The answer is represented in an ASCII Format.
-    HINT 3: <a href=" " target= "_blank"><img src="../images/ascii.png"></a>
+    HINT 2: The answer is represented in an ASCII Format without spaces.
+    HINT 3: <a href="images/ascii.png" target= "_blank"></a>
     PASSWORD: 77971144586101108108
 ROUND 2.2
     CLUE:
@@ -20,7 +20,10 @@ ROUND 2.4
     PASSWORD:
 */
 $hint='The original betrayer. The one who defied the Supreme Intelligence and committed treason. The answer is in a popular digital interpretation format, used by the inhabitants of the target planet.';
-$clue=array('The answer to the character is within the proposal. Read the document carefully.','The answer is represented in an ASCII Format.','<a href=" " target= "_blank"><img src="../images/ascii.png"></a>');
+$clue=array(
+    'The answer to the character is within the proposal. Read the document carefully.',
+    'The answer is represented in an ASCII Format without spaces.',
+    '<a href="images/ascii.png" target= "_blank"></a>');
 $password='77971144586101108108';
 if(isset($_REQUEST["doWhat"])){
     $id= $_REQUEST["id"];
