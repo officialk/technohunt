@@ -21,14 +21,15 @@ if(isset($_REQUEST["doWhat"])){
             $res = $conn->query($query);
             $html = "<div class='row container center'>";
             $ids = '';
+            $num = 1;
             while($r = $res->fetch_assoc()){
-                    $title = $res["title"];
-                    $content = $res["content"];
-                    $id = $res["id"];
+                    $title = $r["title"];
+                    $content = $r["content"];
+                    $id = $r["id"];
                     $ids.="$id,";
                     $html.="
                         <div class='card-panel col s12 m12 l12'>
-                            <div class='card-title'>$title</div>
+                            <div class='card-title flow-text'>Q.$num]$title</div>
                             <div class='card-content'>$content<br>
                                 ";
                                 $query = "select id,content from options where questionId=$id";
@@ -36,7 +37,7 @@ if(isset($_REQUEST["doWhat"])){
                                 while($x=$res1->fetch_assoc()){
                                     $optId = $x["id"];
                                     $optCon = $x["content"];
-                                    $html+="
+                                    $html.="
                                         <div class='input-field col s12 m6 l3'>
                                             <p>
                                                 <label>
@@ -50,30 +51,27 @@ if(isset($_REQUEST["doWhat"])){
                             </div>
                             <div class='card-action'></div>
                         </div>";
+                $num++;
             }
-            $html.="</div><button type='button' onclick='submitRound1()' class='btn theme'>Submit</button><input type='hidden' value='$ids' id='idsList'";
+            $html.="</div><center><button type='button' onclick='submitRound1()' class='btn theme'>Submit</button><input type='hidden' value='$ids' id='idsList'><center>";
         }
         echo $html;
     }
 }
 if(isset($_REQUEST["leftWindow"])){
     $id= $_REQUEST["id"];
-    $query = "update round set leftWindow=leftWindow+1 where round=1 and teamId=$id";
+    $query = "update round set leftWindow=leftWindow+1 where round=1 and teamId=$id and endTime='0000-00-00 00:00:00'";
+    $conn->query($query);
 }
 if(isset($_REQUEST["submit"])){
     $tid = $_REQUEST['tid'];
-    $ans = $_REQUEST['ans[]'];
-    $qId = $_REQUEST['qId[]'];
+    $ans = $_REQUEST['ans'];
+    $qId = $_REQUEST['qId'];
     $query = "update round set endTime=sysdate() where teamId=$tid and round=1";
     $conn->query($query);
-    for($i=0;$i<10;$i++){
-        try{
-            $query = "insert into answers values($tid,$ans[$i],$qId[$i])";
-            $conn->query($query);
-        }
-        catch(exception $e){
-            break;
-        }
+    for($i=0;$i<sizeof($ans);$i++){
+        $query = "insert into answers values($tid,$qId[$i],$ans[$i])";
+        $conn->query($query);
     }
 }
 ?>

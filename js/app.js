@@ -86,7 +86,7 @@ const submitRound1 = () => {
                 document.getElementsByName("ans" + e)
                     .forEach(x => {
                         if (x.checked == true) {
-                            qs += `&ans[]=${e.value}&qId[]=${e}`;
+                            qs += `&ans[]=${x.value}&qId[]=${e}`;
                         }
                     })
             }
