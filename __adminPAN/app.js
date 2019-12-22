@@ -79,7 +79,7 @@ const getTeamList = () => {
         })
 }
 const endRound = () => {
-    let qs = server + "round=" + document.getElementById('roundCount').value;
+    let qs = server + "endRound=true&round=" + document.getElementById('roundCount').value;
     post(qs)
         .then(res => res.text())
         .then(res => getTeamList());

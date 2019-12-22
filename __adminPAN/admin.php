@@ -29,8 +29,8 @@
         }
     }
     if(isset($_REQUEST['getTeams'])){
-//        $query = "select * from teamList";
-        $query = "select * from teamDet";
+        $query = "select * from teamList";
+//        $query = "select * from teamDet";
         $res = $conn->query($query);
         $ret = "";
         while($r=$res->fetch_assoc()){
@@ -44,48 +44,47 @@
         $limit = 0;
         switch($round){
             case 1:
-                $query = "select id from teams where isAlive==true order by id";
+                $query = "select id from teams where isAlive=true order by id";
                 $res = $conn->query($query);
                 while($r=$res->fetch_assoc()){
                     $id = $r['id'];
                     $query = "select count(*) as c from round1Answers where team=$id";
                     $cnt = $conn->query($query);
                     $points = $cnt->fetch_assoc()["c"];
-                    $query = "update round set points=$points/(TIMESTAMPDIFF(minutes,startTime,endTime)*leftWindow) where round=1 and teamId=$id";
+                    $query = "update round set points=100-($points)-(TIMESTAMPDIFF(minute,startTime,endTime)*(leftWindow+1)) where round=1 and teamId=$id";
                     $conn->query($query);
-                    $query = "select teamId from round where round=1 order by points ASC limit 50";
-                    $conn->query("uodate teams set isAlive=false");
+                    $conn->query("update teams set isAlive=0");
+                    $query = "select teamId as id from round where round=1 order by points ASC limit 50";
                     $res2 = $conn->query($query);
                     while($x = $res2->fetch_assoc()){
                         $xid = $x['id'];
-                        $conn->query("uodate teams set isAlive=true where id=$xid");
+                        $conn->query("update teams set isAlive=true where id=$xid");
                     }
                 }
                 break;
             case 2:
-                $query = "select id from teams where isAlive==true order by id";
+                $query = "select id from teams where isAlive=true order by id";
                 $res = $conn->query($query);
                 while($r=$res->fetch_assoc()){
                     $id = $r['id'];
-                    $query = "update round set points=10000/(TIMESTAMPDIFF(minutes,startTime,endTime)*leftWindow) where rouond=2 and teamId=$id";
+                    $query = "update round set points=points+100-(TIMESTAMPDIFF(minute,startTime,endTime)*(leftWindow+1)) where round=2 and teamId=$id";
                     $conn->query($query);
-                    $query = "select teamId from round where round=2 order by points ASC limit 8";
+                    $conn->query("update teams set isAlive=false");
+                    $query = "select teamId as id from round where round=2 order by points ASC limit 8";
                     $res2 = $conn->query($query);
-                    $conn->query("uodate teams set isAlive=false");
                     while($x = $res2->fetch_assoc()){
                         $xid = $x['id'];
-                        $conn->query("uodate teams set isAlive=true where id=$xid");
+                        $conn->query("update teams set isAlive=true where id=$xid");
                     }
                 }
                 break;
         }
-        $query = "select id from teams where isAlive==true order by id";
+        $query = "select id from teams where isAlive=true order by id";
         $res = $conn->query($query);
-        $ret = "{op:[";
+        $ret = "";
         while($r=$res->fetch_assoc()){
             $ret.=json_encode($r);
         }
-        $ret = "]}";
-        echo $ret;
+        echo "{op:[$ret]}";
     }
 ?>
