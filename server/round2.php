@@ -7,17 +7,17 @@ ROUND 2.1
     HINT 3: <a href="images/ascii.png" target= "_blank"></a>
     PASSWORD: 77971144586101108108
 ROUND 2.2
-    CLUE:
-    HINT:
-    PASSWORD:
+    CLUE: The leader of Kree Starforce. The answer is in a popular digital interpretation format, used by the inhabitants of the target planet.
+    HINT 1: The one tasked with controlling Vers by the Supreme Intelligence.  
+    HINT 2: The answer is represented in an ASCII Format without spaces.
+    HINT 3: <a href="images/ascii.png" target= "_blank"></a>
+    PASSWORD: 891111104582111103103 
 ROUND 2.3
-    CLUE:
-    HINT:
-    PASSWORD:
-ROUND 2.4
-    CLUE:
-    HINT:
-    PASSWORD:
+    CLUE: The one who is called as backup to eradicate Skrulls from Earth. The answer is in a popular digital interpretation format, used by the inhabitants of the target planet.
+    HINT 1: This person is killed by the Guardians of the Galaxy.
+    HINT 2: The answer is represented in an ASCII Format without spaces.
+    HINT 3: <a href="images/ascii.png" target= "_blank"></a>
+    PASSWORD: 8211111097110 
 */
 $hint='The original betrayer. The one who defied the Supreme Intelligence and committed treason. The answer is in a popular digital interpretation format, used by the inhabitants of the target planet.';
 $clue=array(
