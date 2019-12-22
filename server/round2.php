@@ -1,4 +1,20 @@
 <?php
+//    CHANGE THE PASSWORD IN ROUND2.PHP
+//    CHANGE THE CLUE TO BE GIVEN IN ROUND2.PHP
+/*
+ROUND 2.1
+    HINT:
+    PASSWORD:
+ROUND 2.2
+    HINT:
+    PASSWORD:
+ROUND 2.3
+    HINT:
+    PASSWORD:
+ROUND 2.4
+    HINT:
+    PASSWORD:
+*/
 $hint='TO BE CHANGED';
 $password='ANSWER';
 if(isset($_REQUEST["doWhat"])){
@@ -58,10 +74,5 @@ if(isset($_REQUEST["submit"])){
         $query = "update round set leftWindow=leftWindow+1 where teamId=$tid and round=2";
         $conn->query($query);
     }
-//    CHANGE THE PASSWORD IN ROUND2.PHP
-//    CHANGE THE CLUE TO BE GIVEN IN ROUND2.PHP
-/*
-
-*/
 }
 ?>
