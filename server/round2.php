@@ -30,10 +30,11 @@ if(isset($_REQUEST["doWhat"])){
                 <div class="card-title center flow-text"><b>Password Break</b></div>
                     <div class="card-content">
                         <p class="flow-text">Talos, the Skrull Commander has approached Captain Marvel and explained that Skrulls are just refugees looking for a new home, and they need help to ensure the captured Skrulls escape from their ship. But the ship’s hatches have been locked! Help Captain Marvel, to decode the password of the ship’s 8 hatches holding Skrulls prisoners while she tries to keep the kree at bay.</p>
+                        <br><div class="flow-text" id="hintsView"></div>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-title center flow-text"><b>Password Hint</b><div class="btn" onclick="getHint()">Get Hint</div></div>
+                    <div class="card-title center flow-text"><b>Password Hint</b></div>
                     <div class="card-content center flow-text">'.$hint.'<br>
                         <div class="input-field col s12 m12 l12">
                             <i class="icon prefix">lock</i>
@@ -42,8 +43,13 @@ if(isset($_REQUEST["doWhat"])){
                         </div>
                         <div class="flow-text center red-text" id="passStatus"></div>
                     </div>
-                    <div class="card-action center">
-                        <div class="btn theme" onclick="submitRound2();">Unlock</div>
+                    <div class="card-action center row">
+                        <div class="col s6 l6 m6 center left">
+                            <div class="btn left" onclick="getHint()">Get Hint</div>
+                        </div>
+                        <div class="col s6 l6 m6 center right">
+                            <div class="btn" onclick="submitRound2();">Unlock</div>
+                        </div>
                     </div>
                 </div>
             ';
@@ -61,7 +67,11 @@ if(isset($_REQUEST["doWhat"])){
     }
 }
 if(isset($_REQUEST["getHint"])){
-
+    $num  = $_REQUEST['num'];
+    $id  = $_REQUEST['id'];
+    $query = "update round set leftWindow=leftWindow+10 where round=2 and teamId=$id and endTime='0000-00-00 00:00:00'";
+    $conn->query($query);
+    echo $clue[$num];
 }
 if(isset($_REQUEST["submit"])){
     $tid = $_REQUEST['tid'];
