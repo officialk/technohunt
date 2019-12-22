@@ -2,15 +2,7 @@
 /*
 ROUND 2.1
     HINT:
-        01001101
-        01000001
-        01010010
-        00101101
-        01010110
-        01000101
-        01001100
-        01001100
-    PASSWORD:MAR-VELL
+    PASSWORD:
 ROUND 2.2
     HINT:
     PASSWORD:
@@ -21,16 +13,9 @@ ROUND 2.4
     HINT:
     PASSWORD:
 */
-$hint='
-        01001101
-        01000001
-        01010010
-        00101101
-        01010110
-        01000101
-        01001100
-        01001100';
-$password='MAR-VELL';
+$hint='';
+$clue=array('','','');
+$password='';
 if(isset($_REQUEST["doWhat"])){
     $id= $_REQUEST["id"];
     $query = "select count(*) as c,endTime from round where teamId=$id and round=2";
@@ -48,7 +33,7 @@ if(isset($_REQUEST["doWhat"])){
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-title center flow-text"><b>Password Hint</b></div>
+                    <div class="card-title center flow-text"><b>Password Hint</b><div class="btn" onclick="getHint()">Get Hint</div></div>
                     <div class="card-content center flow-text">'.$hint.'<br>
                         <div class="input-field col s12 m12 l12">
                             <i class="icon prefix">lock</i>
@@ -74,6 +59,9 @@ if(isset($_REQUEST["doWhat"])){
             echo $html;
         }
     }
+}
+if(isset($_REQUEST["getHint"])){
+
 }
 if(isset($_REQUEST["submit"])){
     $tid = $_REQUEST['tid'];
