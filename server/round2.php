@@ -1,15 +1,21 @@
 <?php
 /*
 ROUND 2.1
-    HINT:
-    PASSWORD:
+    CLUE: The original betrayer. The one who defied the Supreme Intelligence and committed treason. The answer is in a popular digital interpretation format, used by the inhabitants of the target planet.
+    HINT 1: The answer to the character is within the proposal. Read the document carefully.
+    HINT 2: The answer is represented in an ASCII Format.
+    HINT 3: <a href=" " target= "_blank"><img src="../images/ascii.png"></a>
+    PASSWORD: 7765824586697676 (MAR-VELL), 779711445118101108108 (Mar-vell), 1099711445118101108108 (mar-vell), 10997114118101108108 (marvell), 7797114118101108108 (Marvell), 77658286697676 (MARVELL) 
 ROUND 2.2
+    CLUE:
     HINT:
     PASSWORD:
 ROUND 2.3
+    CLUE:
     HINT:
     PASSWORD:
 ROUND 2.4
+    CLUE:
     HINT:
     PASSWORD:
 */
