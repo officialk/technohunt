@@ -113,3 +113,16 @@ const submitRound2 = () => {
             }
         })
 }
+const getHint = () => {
+    data.hints = (data.hints == undefined) ? 0 : data.hints;
+    if (data.hints < 3) {
+        post(`getHint=true&num=${data.hints}&id=${data.id}`)
+            .then(res => res.text())
+            .then(res => {
+                data.hints++;
+                document.getElementById("hintsView").innerHTML += `<br>Hint ${data.hints}::${res}`;
+            });
+    } else {
+        alert("All Hints Taken!!");
+    }
+}

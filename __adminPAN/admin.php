@@ -48,7 +48,7 @@
                 $res = $conn->query($query);
                 while($r=$res->fetch_assoc()){
                     $id = $r['id'];
-                    $query = "select count(*) as c from round1Answers where team=$id";
+                    $query = "select sum(*) as c from round1Answers where team=$id";
                     $cnt = $conn->query($query);
                     $points = $cnt->fetch_assoc()["c"];
                     $query = "update round set points=100-($points)-(TIMESTAMPDIFF(minute,startTime,endTime)*(leftWindow+1)) where round=1 and teamId=$id";
