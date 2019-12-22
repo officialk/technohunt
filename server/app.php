@@ -42,15 +42,14 @@
     }
     if(isset($_REQUEST['logout'])){
         $id = $_REQUEST['id'];
-
-        $conn->query("update isLoggedIn=false where id=$id");
+        $conn->query("update isLoggedIn='::1' where id=$id");
     }
 ?>
 <?php
 //    changes every round
 //    include_once("prebegin.php");
 //    include_once("round1.php");
-    include_once("round2.php");
+//    include_once("round2.php");
 //    include_once("round3.php");
 //    include_once("round4.php");
 ?>
