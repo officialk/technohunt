@@ -43,7 +43,7 @@ const login = () => {
     post(`login=true&name=${name}&pass=${pass}`)
         .then(res => res.text())
         .then(res => {
-            [id,error] = res.split("##");
+            [id, error] = res.split("##");
             if (id != "error") {
                 data.user = name;
                 data.pass = pass;
