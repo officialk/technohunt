@@ -4,7 +4,15 @@
 /*
 ROUND 2.1
     HINT:
-    PASSWORD:
+        01001101
+        01000001
+        01010010
+        00101101
+        01010110
+        01000101
+        01001100
+        01001100
+    PASSWORD:MAR-VELL
 ROUND 2.2
     HINT:
     PASSWORD:
@@ -15,8 +23,16 @@ ROUND 2.4
     HINT:
     PASSWORD:
 */
-$hint='TO BE CHANGED';
-$password='ANSWER';
+$hint='
+        01001101
+        01000001
+        01010010
+        00101101
+        01010110
+        01000101
+        01001100
+        01001100';
+$password='MAR-VELL';
 if(isset($_REQUEST["doWhat"])){
     $id= $_REQUEST["id"];
     $query = "select count(*) as c,endTime from round where teamId=$id and round=2";
