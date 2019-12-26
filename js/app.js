@@ -18,7 +18,7 @@ const logout = () => {
         })
 }
 const post = query => {
-    let qs = `http://192.168.0.104/Techno/server/app.php?${query}`;
+    let qs = `http://192.168.43.218/Techno/server/app.php?${query}`;
     console.log(qs);
     return fetch(qs, {
         method: "post"

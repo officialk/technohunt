@@ -4,26 +4,26 @@ ROUND 2.1
     CLUE: The original betrayer. The one who defied the Supreme Intelligence and committed treason. The answer is in a popular digital interpretation format, used by the inhabitants of the target planet.
     HINT 1: The answer to the character is within the proposal. Read the document carefully.
     HINT 2: The answer is represented in an ASCII Format without spaces.
-    HINT 3: <a href="images/ascii.png" target= "_blank"></a>
+    HINT 3: <a href="images/ascii.png" target= "_blank">CLICK HERE</a>
     PASSWORD: 77971144586101108108
 ROUND 2.2
     CLUE: The leader of Kree Starforce. The answer is in a popular digital interpretation format, used by the inhabitants of the target planet.
     HINT 1: The one tasked with controlling Vers by the Supreme Intelligence.  
     HINT 2: The answer is represented in an ASCII Format without spaces.
-    HINT 3: <a href="images/ascii.png" target= "_blank"></a>
+    HINT 3: <a href="images/ascii.png" target= "_blank">CLICK HERE</a>
     PASSWORD: 891111104582111103103 
 ROUND 2.3
     CLUE: The one who is called as backup to eradicate Skrulls from Earth. The answer is in a popular digital interpretation format, used by the inhabitants of the target planet.
     HINT 1: This person is killed by the Guardians of the Galaxy.
     HINT 2: The answer is represented in an ASCII Format without spaces.
-    HINT 3: <a href="images/ascii.png" target= "_blank"></a>
+    HINT 3: <a href="images/ascii.png" target= "_blank">CLICK HERE</a>
     PASSWORD: 8211111097110 
 */
 $hint='The original betrayer. The one who defied the Supreme Intelligence and committed treason. The answer is in a popular digital interpretation format, used by the inhabitants of the target planet.';
 $clue=array(
     'The answer to the character is within the proposal. Read the document carefully.',
     'The answer is represented in an ASCII Format without spaces.',
-    '<a href="images/ascii.png" target= "_blank"></a>');
+    '<a href="images/ascii.png" target= "_blank">CLICK HERE</a>');
 $password='77971144586101108108';
 if(isset($_REQUEST["doWhat"])){
     $id= $_REQUEST["id"];
@@ -59,6 +59,7 @@ if(isset($_REQUEST["doWhat"])){
                         <div class="col s6 l6 m6 center right">
                             <div class="btn" onclick="submitRound2();">Unlock</div>
                         </div>
+                        <p class="left">You can use hints, but each hint costs negative points!</p>
                     </div>
                 </div>
             ';

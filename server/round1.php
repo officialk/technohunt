@@ -17,7 +17,7 @@ if(isset($_REQUEST["doWhat"])){
             ';
         }
         else{
-            $query = "select id,title,content from question where round=1 order by RAND() limit 10";
+            $query = "select id,title,content from question where round=1 order by RAND() limit 25";
             $res = $conn->query($query);
             $html = "<div class='row container center'>";
             $ids = '';

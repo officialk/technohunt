@@ -8,7 +8,7 @@ if(isset($_REQUEST["doWhat"])){
         if ($res["memberNames"] != "") {
             $html = '
                 <div class="row container center">
-                    <h3>Your Registration Is Complete Please Logout And Wait For The Next Round To Start</h3>
+                    <h3>Your Registration Is Complete Please Logout And Wait For The Round To Start</h3>
                     <button type="button" onclick="logout()" class="btn btn-large theme green"><i class="icon">exit_to_app</i></button>
                 </div>
                 ';

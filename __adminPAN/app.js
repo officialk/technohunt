@@ -1,4 +1,4 @@
-const server = "http://192.168.0.104/Techno/__adminPAN/admin.php?";
+const server = "http://192.168.43.218/Techno/__adminPAN/admin.php?";
 var count = 0;
 window.onload = (e) => {
     M.AutoInit();

@@ -54,7 +54,7 @@
                     $query = "update round set points=100-($points)-(TIMESTAMPDIFF(minute,startTime,endTime)*(leftWindow+1)) where round=1 and teamId=$id";
                     $conn->query($query);
                     $conn->query("update teams set isAlive=0");
-                    $query = "select teamId as id from round where round=1 order by points ASC limit 50";
+                    $query = "select teamId as id from round where round=1 order by points ASC limit 20";
                     $res2 = $conn->query($query);
                     while($x = $res2->fetch_assoc()){
                         $xid = $x['id'];
